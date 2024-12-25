@@ -34,9 +34,9 @@ buttons.forEach((button, index) => {
       if (currentValue === "0" && operator === "/") {
         displayOperation("Can't divide by zero");
       } else if (currentValue && operator && previousValue) {
-        const result = calc(currentValue, operator, previousValue);
-        currentValue = result;
-        displayOperation(currentValue);
+        const result = calc(previousValue, operator, currentValue);
+        previousValue = result;
+        displayOperation(result);
         currentValue = "";
       }
     }
@@ -55,10 +55,10 @@ function calc(a, operator, b) {
     case "+":
       return a + b;
     case "-":
-      return b - a;
+      return a - b;
     case "x":
       return a * b;
     case "/":
-      return b / a;
+      return a / b;
   }
 }
