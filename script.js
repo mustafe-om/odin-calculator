@@ -23,7 +23,9 @@ buttons.forEach((button, index) => {
       display.textContent = "0";
     } else if (value === "%") {
       currentValue = currentValue / 100;
-      displayOperation(currentValue);
+      previousValue = previousValue / 100;
+      displayOperation(currentValue || previousValue);
+      currentValue = "";
     } else if (["+", "-", "x", "/"].includes(value)) {
       if (currentValue) {
         previousValue = currentValue;
@@ -32,9 +34,10 @@ buttons.forEach((button, index) => {
       operator = value;
     } else if (value === "=") {
       if (currentValue === "0" && operator === "/") {
+        let result = 0;
         displayOperation("Can't divide by zero");
       } else if (currentValue && operator && previousValue) {
-        const result = calc(previousValue, operator, currentValue);
+        result = calc(previousValue, operator, currentValue);
         previousValue = result;
         displayOperation(result);
         currentValue = "";
